@@ -1,4 +1,4 @@
-// 1. A random computation runs for Computer response
+// 1. A random playable choice runs for Computer response
 function getComputerChoice() {
   let computerNumberChoice = Math.floor(Math.random() * 3 + 1);
   let computerChoice;
@@ -9,7 +9,7 @@ function getComputerChoice() {
     computerChoice = "Paper";
   } else if (computerNumberChoice === 3) {
     computerChoice = "Scissors";
-  } else console.error("Computational Error");
+  } else console.log("Computational Error");
 
   return computerChoice;
 }
@@ -34,15 +34,11 @@ function getHumanChoice(humanChoice) {
     humanChoice.toLowerCase() === "scissors"
   ) {
     humanChoice = "Scissors";
-  } else console.error("Invalid User Input");
+  } else console.log("Invalid User Input");
 
   return humanChoice;
 }
 // console.log();
-
-//3. Assign Scores Player-Computer
-let humanScore = 0;
-let computerScore = 0;
 
 //4. Logic for playing a single Round: if some of the following conditions completed:
 // 1. Rock beats Scissors
@@ -52,32 +48,51 @@ let computerScore = 0;
 // 5. If Players  choice beats Computer we have message 'Win'
 // 6. If Computer beats Player we have message 'Lose'
 
-function playRound(humanChoice, computerChoice) {
-  humanChoice = getHumanChoice();
-  computerChoice = getComputerChoice();
+function playGame() {
+  const winningScore = 5;
+  //3. Assign Scores Player-Computer
+  let humanScore = 0;
+  let computerScore = 0;
 
-  if (humanChoice === "Rock" && computerChoice === "Scissors") {
-    humanScore += 1;
-    return `You win! ${humanChoice} beats ${computerChoice}.`;
-  } else if (humanChoice === "Rock" && computerChoice === "Paper") {
-    computerScore += 1;
-    return `You lost! ${humanChoice} loses to ${computerChoice}.`;
-  } else if (humanChoice === "Paper" && computerChoice === "Rock") {
-    humanScore += 1;
-    return `You win! ${humanChoice} beats ${computerChoice}.`;
-  } else if (humanChoice === "Paper" && computerChoice === "Scissors") {
-    computerScore += 1;
-    return `You lost! ${humanChoice} loses to ${computerChoice}.`;
-  } else if (humanChoice === "Scissors" && computerChoice === "Paper") {
-    humanScore += 1;
-    return `You win! ${humanChoice} beats ${computerChoice}.`;
-  } else if (humanChoice === "Scissors" && computerChoice === "Rock") {
-    computerScore += 1;
-    return `You lost! ${humanChoice} loses to ${computerChoice}.`;
-  } else if (humanChoice === computerChoice) {
-    return `Tie! Player selected: ${humanChoice}, and CPU selected ${computerChoice}`;
-  } else
-    return `Valid player input only Rock, Paper, Scissors! Please choose from these options`;
+  function playRound(humanChoice, computerChoice) {
+    humanChoice = getHumanChoice();
+    computerChoice = getComputerChoice();
+
+    if (humanChoice === "Rock" && computerChoice === "Scissors") {
+      humanScore += 1;
+      return `You win! Your choice ${humanChoice} beats CPU choice: ${computerChoice}.`;
+    } else if (humanChoice === "Rock" && computerChoice === "Paper") {
+      computerScore += 1;
+      return `You lost! Your choice ${humanChoice} loses to CPU choice: ${computerChoice}.`;
+    } else if (humanChoice === "Paper" && computerChoice === "Rock") {
+      humanScore += 1;
+      return `You win! Your choice ${humanChoice} beats CPU choice: ${computerChoice}.`;
+    } else if (humanChoice === "Paper" && computerChoice === "Scissors") {
+      computerScore += 1;
+      return `You lost! Your choice ${humanChoice} loses to CPU choice: ${computerChoice}.`;
+    } else if (humanChoice === "Scissors" && computerChoice === "Paper") {
+      humanScore += 1;
+      return `You win! Your choice ${humanChoice} beats CPU choice: ${computerChoice}.`;
+    } else if (humanChoice === "Scissors" && computerChoice === "Rock") {
+      computerScore += 1;
+      return `You lost! Your choice ${humanChoice} loses to CPU choice: ${computerChoice}.`;
+    } else if (humanChoice === computerChoice) {
+      return `Tie! Player selected: ${humanChoice}, and CPU selected ${computerChoice}`;
+    } else
+      return `Invalid player input only Rock, Paper, Scissors! Please choose from these options`;
+  }
+
+  // Invoke playRound() based on scores
+  while (humanScore < 5 && computerScore < 5) {
+    let round = playRound();
+    console.log(
+      `${round} -> Player Score: ${humanScore} and Computer Score: ${computerScore}`
+    );
+    if (humanScore === winningScore || computerScore === winningScore) {
+      return `Game Ended with Score: Player ${humanScore} & Computer ${computerScore}`;
+    }
+  }
 }
-
-console.log(playRound());
+console.log(playGame());
+// Logic to play a full game to 5 rounds
+//Create new function playGame(). Function playRoun()  will be nested inside
