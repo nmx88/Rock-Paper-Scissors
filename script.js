@@ -49,6 +49,7 @@ function getHumanChoice(humanChoice) {
 // 6. If Computer beats Player we have message 'Lose'
 
 function playGame() {
+  console.log("Game Initialized");
   const winningScore = 5;
   //3. Assign Scores Player-Computer
   let humanScore = 0;
@@ -89,10 +90,12 @@ function playGame() {
       `${round} -> Player Score: ${humanScore} and Computer Score: ${computerScore}`
     );
     if (humanScore === winningScore || computerScore === winningScore) {
-      return `Game Ended with Score: Player ${humanScore} & Computer ${computerScore}`;
+      `Game Ended with Score: Player ${humanScore} & Computer ${computerScore}`;
+      break;
     }
   }
+  return `Final Score: Player ${humanScore} & Computer ${computerScore}`;
 }
-console.log(playGame());
+
 // Logic to play a full game to 5 rounds
-//Create new function playGame(). Function playRoun()  will be nested inside
+//Create new function playGame(). Function playRound()  will be nested inside
